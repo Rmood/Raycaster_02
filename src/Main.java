@@ -43,16 +43,15 @@ public class Main {
             Hit tempHit = scene.intersect(newRay);
 
             if (tempHit == null) {
-                float cosValue =  (float) lightV.dot(firstHit.normal) * calculateIntensity(firstHit.point.add(firstHit.normal));
+                retValue +=  - (float) lightV.dot(firstHit.normal) * calculateIntensity(firstHit.point.add(firstHit.normal), light);
 
-                if (cosValue < 0)
-                    retValue = 0;
-                else
-                    retValue = cosValue;
+
 
             } else retValue = 0;
         }
-        return retValue;
+            if (retValue < 0)
+                retValue = 0;
+            return retValue;
     }
 
     public void setup() {
@@ -134,13 +133,11 @@ public class Main {
         main.render();
     }
 
-    float calculateIntensity(Point3 point) {
+    float calculateIntensity(Point3 point, Light light) {
         float intensity = 0;
-        for (int i = 0; i < scene.lights.size(); i++) {
-            float tempDistance = point.subtract(scene.lights.get(i).point).length();
+            float tempDistance = point.subtract(light.point).length();
 
-            intensity +=  (tempDistance * scene.lights.get(i).intensity)/ (tempDistance) ;
-        }
+            intensity +=  (tempDistance * light.intensity)/ (tempDistance) ;
         return fitIntensity(intensity);
     }
 
