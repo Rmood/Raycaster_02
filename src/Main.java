@@ -43,14 +43,13 @@ public class Main {
             Hit tempHit = scene.intersect(newRay);
 
             if (tempHit == null) {
-                retValue +=  - (float) lightV.dot(firstHit.normal) * calculateIntensity(firstHit.point.add(firstHit.normal), light);
+                retValue +=  (float) lightV.dot(firstHit.normal) * calculateIntensity(firstHit.point.add(firstHit.normal.multiply(0.0001)), light);
+                System.out.println(retValue + " ret");
 
 
-
-            } else retValue = 0;
+            }else System.out.println(retValue);
         }
-            if (retValue < 0)
-                retValue = 0;
+
             return retValue;
     }
 
@@ -68,7 +67,7 @@ public class Main {
         scene.add(new Sphere(new Point3(1, 0, 1), 0.4, false));
         scene.add(new Sphere(new Point3(0.4, 1, -0.6), 0.2, false));
 
-        scene.addLight(new Light(new Point3(1, 1, 1), (float) 1));
+        scene.addLight(new Light(new Point3(2, -1, 2), (float) 1));
         //scene.addLight(new Light(new Point3(4, 0, 0), (float) 0.5));
 
         Vector3 light = new Vector3(-1, 0, 0).unitize();
@@ -131,6 +130,7 @@ public class Main {
         System.out.println("Tyge definitely sux! Big time.....");
         System.out.println("Kerem sux");
         System.out.println("No he doesn't");
+
         Main main = new Main();
         main.setup();
         main.args = args;
@@ -138,10 +138,9 @@ public class Main {
     }
 
     float calculateIntensity(Point3 point, Light light) {
-        float intensity = 0;
-            float tempDistance = point.subtract(light.point).length();
+        float tempDistance = point.subtract(light.point).length();
 
-            intensity +=  (tempDistance * light.intensity)/ (tempDistance) ;
+        float intensity =  (tempDistance * light.intensity)/ (tempDistance) ;
         return fitIntensity(intensity);
     }
 
