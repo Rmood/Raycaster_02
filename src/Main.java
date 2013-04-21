@@ -130,6 +130,7 @@ public class Main {
         System.out.println("Tyge sux!");
         System.out.println("Tyge definitely sux! Big time.....");
         System.out.println("Kerem sux");
+        System.out.println("No he doesn't");
         Main main = new Main();
         main.setup();
         main.args = args;
