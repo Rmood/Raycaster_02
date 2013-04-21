@@ -128,6 +128,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Tyge sux!");
+        System.out.println("Tyge definitely sux! Big time.....");
         Main main = new Main();
         main.setup();
         main.args = args;
